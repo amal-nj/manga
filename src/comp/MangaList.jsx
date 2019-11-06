@@ -39,7 +39,7 @@ export default class MangaList extends Component {
         return (
             <div>
                 I'm manga list
-                <Details manga={this.state.viewManga}/>
+                <Details manga={this.state.viewManga} toggleFave={this.toggleFave} toggleWant={this.toggleWant} toggleCurrent={this.toggleCurrent}/>
                 {list}
             </div>
         )

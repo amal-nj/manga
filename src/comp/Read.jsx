@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 export default class Read extends Component {
     state={
-        images:[]
+        images:null
     }
     ;
     componentDidMount(){
@@ -19,7 +19,7 @@ export default class Read extends Component {
         return (
             <div>
                 I'm reading
-                {this.state.images.map(image=><img src={`https://cdn.mangaeden.com/mangasimg/${image[1]}`}/>
+                {this.state.images&&this.state.images.map(image=><img src={`https://cdn.mangaeden.com/mangasimg/${image[1]}`}/>
                 )}
             </div>
         )
