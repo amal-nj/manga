@@ -16,10 +16,12 @@ export default class Read extends Component {
     render() {
         console.log("images");
         console.log(this.images);
+        let isFave=this.props.faves.includes()
         return (
             <div>
                 I'm reading
-                {this.state.images&&this.state.images.map(image=><img src={`https://cdn.mangaeden.com/mangasimg/${image[1]}`}/>
+                <button>{}</button>
+                {this.state.images&&this.state.images.map((image,i)=><img src={`https://cdn.mangaeden.com/mangasimg/${image[1]}`} key={i}/>
                 )}
             </div>
         )

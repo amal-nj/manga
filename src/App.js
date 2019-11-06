@@ -15,12 +15,13 @@ export default class App extends Component {
   state={
     faves: [],
     currentRead: [],
-    want2Read: []
+    want2Read: [],
   }
+  
   toggleFave(manga){
-    let index=this.state.faves.includes(manga);
+    let index=this.state.faves.indexOf(manga);
     let faves=[...this.state.faves];
-    if(index>0){
+    if(index>=0){
       faves.splice(index, 1);
       console.log(`removing ${manga.a} from my favorites list`);
      
@@ -30,14 +31,16 @@ export default class App extends Component {
       console.log(`adding ${manga.a} to my favorites list`);
 
     }
-    this.setState({faves});
+    this.setState({
+      faves:faves,
+    });
 
   }
 
   toggleCurrent(manga){
-    let index=this.state.currentRead.includes(manga);
+    let index=this.state.currentRead.indexOf(manga);
     let current=[...this.state.currentRead];
-    if(index>0){
+    if(index>=0){
       current.splice(index, 1);
       console.log(`removing ${manga.a} from my currently reading list`);
      
@@ -47,15 +50,17 @@ export default class App extends Component {
       console.log(`adding ${manga.a} to my currently reading list`);
 
     }
-    this.setState({currentRead: current});
+    this.setState({
+      currentRead: current,
+    });
 
   }
 
   
   toggleWant(manga){
-    let index=this.state.want2Read.includes(manga);
+    let index=this.state.want2Read.indexOf(manga);
     let want=[...this.state.want2Read];
-    if(index>0){
+    if(index>=0){
       want.splice(index, 1);
       console.log(`removing ${manga.a} from my want to read list`);
      
@@ -65,22 +70,26 @@ export default class App extends Component {
       console.log(`adding ${manga.a} to my want to read list`);
 
     }
-    this.setState({want2Read: want});
+    this.setState({
+      want2Read: want,
+    });
 
   }
 
   render() {
+    console.log("I'm updating");
+    console.log(this.state.faves);
     return (
       <div>
         I'm app
         <Router>
-        {/* <nav>
+        <nav>
           <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/gallary">Gallary</Link>
-          <Link to="/contact">Contact</Link>
+          <Link to="/list">MangaList</Link>
 
-        </nav> */}
+          <Link to="/myManga">MyManga</Link>
+
+        </nav>
 {/* 
         <Navbar className="Navbar" bg="dark">
           <Navbar.Brand href="#home">SEI Super Heros</Navbar.Brand>
@@ -94,9 +103,9 @@ export default class App extends Component {
 
         <Switch>
           <Route exact path="/" component={Home}/>
-          <Route exact path="/list" render={(props) => <MangaList {...props} toggleFave={this.toggleFave} toggleWant={this.toggleWant} toggleCurrent={this.toggleCurrent}/>} />
-          <Route path="/read/:id" component={Read} />
-          <Route exact path="/myManga" render={(props) => <MyManga {...props} toggleFave={this.toggleFave} toggleWant={this.toggleWant} toggleCurrent={this.toggleCurrent}/>} />
+          <Route exact path="/list" render={(props) => <MangaList {...props} toggleFave={this.toggleFave} toggleWant={this.toggleWant} toggleCurrent={this.toggleCurrent} faves={this.state.faves} want2Read={this.state.want2Read}/>} />
+          <Route path="/read/:id/:manga" render={(props) => <Read {...props} toggleFave={this.toggleFave}  faves={this.state.faves}/>} />
+          <Route exact path="/myManga" render={(props) => <MyManga {...props} toggleFave={this.toggleFave} toggleWant={this.toggleWant} toggleCurrent={this.toggleCurrent} faves={this.state.faves} want2Read={this.state.want2Read} currentRead={this.state.currentRead}/>} />
 
         </Switch>
       </Router>

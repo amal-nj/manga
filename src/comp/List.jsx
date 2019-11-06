@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 export default class List extends Component {
     render() {
-        console.log("https://cdn.mangaeden.com/mangasimg/"+this.props.manga.im);
 
         return (
             <div onClick={this.props.onViewDetails}>
