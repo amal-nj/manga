@@ -1,0 +1,78 @@
+.manga-cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    /* grid-template-rows: 1fr 1fr 1fr; */
+    gap:30px;
+    margin:10px;
+    /* position: relative;
+    flex: 1 0 33.333333%;
+    height: 100%;
+    padding: 3.6em 0 0; */
+    overflow-y: scroll;
+    height: 750px;
+
+}
+
+.manga-cards img{
+    /* width:10%;
+    height: 20%; */
+}
+.mange-list{
+    display: inline;
+    height: 100%;
+}
+.list {
+  
+  }
+
+  .inline{
+      display: inline-block;
+  }
+
+tr{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap:10px;
+}
+
+.details{
+    padding-top: 50px;
+    height: 750px;
+    overflow-y: scroll;
+
+}
+
+.btn-list button{
+    margin:5px;
+}
+
+.my-manga{
+    margin: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.info-card{
+    margin: 20px;
+}
+
+.home{
+    width:100%;
+    height: 750;
+}
+
+.title{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    z-index: 999;
+    color: white;
+    text-shadow: 4px 4px 8px #000000;
+
+}
+
+.title h1{
+    font-size: 100px;
+}

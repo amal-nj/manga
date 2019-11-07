@@ -24,11 +24,23 @@ export default class Details extends Component {
     }
   }
   render() {
-    let details = 0;
+    let chapterList = "";
+    let details = "";
     if (this.state.details) {
+      chapterList = this.state.details.chapters.map(chapter => (
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <Link to={`/read/${chapter[3]}/${this.props.current.t}`}>
+              Chapter {chapter[0]}
+            </Link>
+          </li>
+        </ul>
+      ));
+      console.log("chapters");
+      console.log(this.state.details.chapters);
       details = (
         <div>
-          {this.state.details.alias}
+          {/* {this.state.details.alias}
           <br />
           {this.state.details.author}
           <br />
@@ -36,7 +48,11 @@ export default class Details extends Component {
           <br />
           {this.state.details.categories}
           <br />
-          <Link to={`/read/${this.state.details.chapters[0][3]}/${this.props.current.t}`}>
+          <Link
+            to={`/read/${this.state.details.chapters[0][3]}/${
+              this.props.current.t
+            }`}
+          >
             <button
               onClick={() => {
                 this.props.toggleCurrent();
@@ -52,15 +68,60 @@ export default class Details extends Component {
           <button onClick={this.props.toggleWant}>
             {this.props.isWant ? "Remove From Want to Read" : "Want to Read"}
           </button>
+          {chapterList} */}
+
+          <div className="card" >
+            <div className="card-body">
+              <h5 className="card-title"> {this.state.details.alias}</h5>
+              <h6 className="card-subtitle mb-2 text-muted">
+                Auther: {this.state.details.author}
+              </h6>
+              <img
+                src={
+                  "https://cdn.mangaeden.com/mangasimg/" +
+                  this.state.details.image
+                }
+                alt=""
+              />
+              <div className="btn-list">
+                <Link
+                  to={`/read/${this.state.details.chapters[0][3]}/${
+                    this.props.current.t
+                  }`}
+                >
+                  <button
+                    className=" btn btn-dark"
+                    onClick={() => {
+                      this.props.toggleCurrent();
+                      this.props.onRead();
+                    }}
+                  >
+                    read
+                  </button>
+                </Link>
+                <button
+                  className=" btn btn-dark"
+                  onClick={this.props.toggleFave}
+                >
+                  {this.props.isFave ? "Remove From Favorite" : "Favorite"}
+                </button>
+                <button
+                  className=" btn btn-dark"
+                  onClick={this.props.toggleWant}
+                >
+                  {this.props.isWant
+                    ? "Remove From Want to Read"
+                    : "Want to Read"}
+                </button>
+              </div>
+              <div class="card-header mt-5">Chapter List</div>
+              {chapterList}
+            </div>
+          </div>
         </div>
       );
     }
     // console.log("isFvae: " +this.props.isFave);
-    return (
-      <div>
-        I'm details
-        {details}
-      </div>
-    );
+    return <div className="details text-center">{details}</div>;
   }
 }

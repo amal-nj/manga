@@ -21,19 +21,30 @@ export default class MangaList extends Component {
       .then(res => {
         console.log(res);
         let mangaArr = [];
-        res.data.manga.slice(0, 20).forEach(item => {
-          if (
-            item.c.length &&
-            !(item.c.includes("Yaoi") || item.c.includes("Romance"))
-          ) {
-            //yes I actually had to filter it out
-            mangaArr.push(item);
-          }
+        res.data.manga.slice(0, 100).forEach(item => {
+            if(this.props.search==""){
+                if (
+                    item.c.length &&
+                    !(item.c.includes("Yaoi") || item.c.includes("Romance") || item.c.includes("Yuri")||item.c.includes("Ecchi")||item.c.includes("Harem"))
+                ) {
+                    //yes I actually had to filter it out
+                    mangaArr.push(item);
+                }
+        }else{
+            if (
+                item.c.length &&
+                !(item.c.includes("Yaoi") || item.c.includes("Romance") || item.c.includes("Yuri") ||item.c.includes("Ecchi")||item.c.includes("Harem"))&&(item.a==this.props.search||item.t==this.props.search)
+            ) {
+                //yes I actually had to filter it out
+                mangaArr.push(item);
+            }
+        }
         });
         this.setState({ mangaArr });
         console.log(mangaArr);
       })
       .catch(error => console.log(error));
+      // this.props.resetSearch();
   }
   render() {
     var list = this.state.mangaArr.map(manga => (
@@ -49,9 +60,16 @@ export default class MangaList extends Component {
     // console.log("isFave: " +this.props.check.faves.includes(this.state.viewManga));
         // console.log("I'm updating");
     return (
-      <div>
-        I'm manga list
-        <Details
+      
+      <tr className="manga-list">
+        <td className="inline">
+      <div className="manga-cards">
+        {list}
+
+        </div>
+        </td>
+        <td className="inline">
+        <Details 
           manga={this.state.viewManga}
           toggleFave={()=>this.props.toggleFave(this.state.viewManga)}
           toggleWant={()=>this.props.toggleWant(this.state.viewManga)}
@@ -63,8 +81,10 @@ export default class MangaList extends Component {
 
 
         />
-        {list}
-      </div>
+        </td>
+        
+      </tr> 
+
     );
   }
 }
