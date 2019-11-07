@@ -114,9 +114,9 @@ export default class App extends Component {
             <Link to="/myManga">MyManga</Link>
           </nav> */}
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">
+            <Link className="navbar-brand" to="/">
               Manga Eden
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -137,7 +137,7 @@ export default class App extends Component {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/list" onClick={this.resetSearch} >
+                  <Link className="nav-link" to="/list" >
                     MangaList
                   </Link>
                 </li>

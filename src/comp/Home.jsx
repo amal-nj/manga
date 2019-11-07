@@ -6,7 +6,7 @@ export default class Home extends Component {
       <div className="text-center home" >
           <div className="title">
           <h1>Manga Eden</h1>
-          <h3>Read Manga Everwhere</h3>
+          <h3>Read Manga Everywhere</h3>
           </div>
    
         <div

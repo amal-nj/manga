@@ -25,7 +25,7 @@ export default class Details extends Component {
   }
   render() {
     let chapterList = "";
-    let details = "";
+    let details = "Nothing is selected";
     if (this.state.details) {
       chapterList = this.state.details.chapters.map(chapter => (
         <ul class="list-group list-group-flush">

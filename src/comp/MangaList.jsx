@@ -15,7 +15,10 @@ export default class MangaList extends Component {
   viewMangaDetails(manga) {
     this.setState({ viewManga: manga });
   }
+
   componentDidMount() {
+    console.log("here")
+    console.log(this.state.search);
     axios
       .get("https://www.mangaeden.com/api/list/0/")
       .then(res => {
@@ -40,12 +43,53 @@ export default class MangaList extends Component {
             }
         }
         });
-        this.setState({ mangaArr });
+        if(JSON.stringify(this.state.mangaArr)!=JSON.stringify(mangaArr)){
+          this.setState({ mangaArr });
+        }
+        console.log("just now")
         console.log(mangaArr);
       })
       .catch(error => console.log(error));
       // this.props.resetSearch();
   }
+  componentDidUpdate() {
+    console.log("here")
+    console.log(this.state.search);
+    axios
+      .get("https://www.mangaeden.com/api/list/0/")
+      .then(res => {
+        console.log(res);
+        let mangaArr = [];
+        res.data.manga.slice(0, 100).forEach(item => {
+            if(this.props.search==""){
+                if (
+                    item.c.length &&
+                    !(item.c.includes("Yaoi") || item.c.includes("Romance") || item.c.includes("Yuri")||item.c.includes("Ecchi")||item.c.includes("Harem"))
+                ) {
+                    //yes I actually had to filter it out
+                    mangaArr.push(item);
+                }
+        }else{
+            if (
+                item.c.length &&
+                !(item.c.includes("Yaoi") || item.c.includes("Romance") || item.c.includes("Yuri") ||item.c.includes("Ecchi")||item.c.includes("Harem"))&&(item.a==this.props.search||item.t==this.props.search)
+            ) {
+                //yes I actually had to filter it out
+                mangaArr.push(item);
+            }
+        }
+        });
+        if(JSON.stringify(this.state.mangaArr)!=JSON.stringify(mangaArr)){
+          this.setState({ mangaArr });
+        }
+        console.log("just now")
+        console.log(mangaArr);
+      })
+      .catch(error => console.log(error));
+      // this.props.resetSearch();
+  }
+
+ 
   render() {
     var list = this.state.mangaArr.map(manga => (
       <div>
