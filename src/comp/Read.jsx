@@ -53,12 +53,12 @@ goToPage(i){
   render() {
     console.log("images");
     console.log(this.images);
+    
     const menuClass = `dropdown-menu${this.state.isOpen ? " show" : ""}`;
 
-    let isFave = this.props.faves.includes();
     return (
       <div className="text-center mt-10">
-          <h2>{this.props.title}</h2>
+          <h2>{this.props.match.params.manga}</h2>
         <div
           class="btn-group mt-10"
           role="group"

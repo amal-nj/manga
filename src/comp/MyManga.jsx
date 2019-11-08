@@ -28,7 +28,7 @@ export default class MyManga extends Component {
                 <h4>{manga.t}</h4>
                 <button
                   className="btn btn-dark"
-                  onClick={() => this.props.toggleCurrent(manga)}
+                  onClick={() => this.props.removeCurrent(manga)}
                 >
                   Remove From currently Reading
                 </button>

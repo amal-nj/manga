@@ -28,7 +28,7 @@ export default class MangaList extends Component {
             if(this.props.search==""){
                 if (
                     item.c.length &&
-                    !(item.c.includes("Yaoi") || item.c.includes("Romance") || item.c.includes("Yuri")||item.c.includes("Ecchi")||item.c.includes("Harem"))
+                    !(item.c.includes("Yaoi")  || item.c.includes("Yuri")||item.c.includes("Ecchi")||item.c.includes("Harem"))
                 ) {
                     //yes I actually had to filter it out
                     mangaArr.push(item);
@@ -36,9 +36,8 @@ export default class MangaList extends Component {
         }else{
             if (
                 item.c.length &&
-                !(item.c.includes("Yaoi") || item.c.includes("Romance") || item.c.includes("Yuri") ||item.c.includes("Ecchi")||item.c.includes("Harem"))&&(item.a==this.props.search||item.t==this.props.search)
+                !(item.c.includes("Yaoi") || item.c.includes("Yuri") ||item.c.includes("Ecchi")||item.c.includes("Harem"))&&(item.a==this.props.search||item.t==this.props.search)
             ) {
-                //yes I actually had to filter it out
                 mangaArr.push(item);
             }
         }
@@ -64,17 +63,15 @@ export default class MangaList extends Component {
             if(this.props.search==""){
                 if (
                     item.c.length &&
-                    !(item.c.includes("Yaoi") || item.c.includes("Romance") || item.c.includes("Yuri")||item.c.includes("Ecchi")||item.c.includes("Harem"))
+                    !(item.c.includes("Yaoi") || item.c.includes("Yuri")||item.c.includes("Ecchi")||item.c.includes("Harem"))
                 ) {
-                    //yes I actually had to filter it out
                     mangaArr.push(item);
                 }
         }else{
             if (
                 item.c.length &&
-                !(item.c.includes("Yaoi") || item.c.includes("Romance") || item.c.includes("Yuri") ||item.c.includes("Ecchi")||item.c.includes("Harem"))&&(item.a==this.props.search||item.t==this.props.search)
+                !(item.c.includes("Yaoi") || item.c.includes("Yuri") ||item.c.includes("Ecchi")||item.c.includes("Harem"))&&(item.a==this.props.search||item.t==this.props.search)
             ) {
-                //yes I actually had to filter it out
                 mangaArr.push(item);
             }
         }
@@ -101,8 +98,7 @@ export default class MangaList extends Component {
         />
       </div>
     ));
-    // console.log("isFave: " +this.props.check.faves.includes(this.state.viewManga));
-        // console.log("I'm updating");
+ 
     return (
       
       <tr className="manga-list">
@@ -118,8 +114,8 @@ export default class MangaList extends Component {
           toggleFave={()=>this.props.toggleFave(this.state.viewManga)}
           toggleWant={()=>this.props.toggleWant(this.state.viewManga)}
           toggleCurrent={()=>this.props.toggleCurrent(this.state.viewManga)}
-          isFave={this.props.faves.includes(this.state.viewManga)}
-          isWant={this.props.want2Read.includes(this.state.viewManga)}
+          isFave={this.props.faves.map(item=>JSON.stringify(item)).includes(JSON.stringify(this.state.viewManga))}
+          isWant={this.props.want2Read.map(item=>JSON.stringify(item)).includes(JSON.stringify(this.state.viewManga))}
           onRead={() => this.viewMangaDetails(this.state.viewManga)}
           current={this.state.viewManga}
 

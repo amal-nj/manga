@@ -24,13 +24,18 @@ export default class Details extends Component {
     }
   }
   render() {
+    console.log("states");
+    console.log(this.props.faves);
     let chapterList = "";
     let details = "Nothing is selected";
     if (this.state.details) {
       chapterList = this.state.details.chapters.map(chapter => (
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            <Link to={`/read/${chapter[3]}/${this.props.current.t}`}>
+            <Link to={`/read/${chapter[3]}/${this.props.current.t}`}   onClick={() => {
+                      this.props.toggleCurrent();
+                      this.props.onRead();
+                    }}>
               Chapter {chapter[0]}
             </Link>
           </li>
@@ -40,37 +45,8 @@ export default class Details extends Component {
       console.log(this.state.details.chapters);
       details = (
         <div>
-          {/* {this.state.details.alias}
-          <br />
-          {this.state.details.author}
-          <br />
-          {this.state.details.artist}
-          <br />
-          {this.state.details.categories}
-          <br />
-          <Link
-            to={`/read/${this.state.details.chapters[0][3]}/${
-              this.props.current.t
-            }`}
-          >
-            <button
-              onClick={() => {
-                this.props.toggleCurrent();
-                this.props.onRead();
-              }}
-            >
-              read
-            </button>
-          </Link>
-          <button onClick={this.props.toggleFave}>
-            {this.props.isFave ? "Remove From Favorite" : "Favorite"}
-          </button>
-          <button onClick={this.props.toggleWant}>
-            {this.props.isWant ? "Remove From Want to Read" : "Want to Read"}
-          </button>
-          {chapterList} */}
 
-          <div className="card" >
+         <div className="card" >
             <div className="card-body">
               <h5 className="card-title"> {this.state.details.alias}</h5>
               <h6 className="card-subtitle mb-2 text-muted">

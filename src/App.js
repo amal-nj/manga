@@ -15,6 +15,7 @@ export default class App extends Component {
     super();
     this.toggleFave = this.toggleFave.bind(this);
     this.toggleCurrent = this.toggleCurrent.bind(this);
+    this.removeCurrent=this.removeCurrent.bind(this);
     this.toggleWant = this.toggleWant.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
     this.resetSearch = this.resetSearch.bind(this);
@@ -27,8 +28,10 @@ export default class App extends Component {
   };
 
   toggleFave(manga) {
-    let index = this.state.faves.indexOf(manga);
     let faves = [...this.state.faves];
+    let checkFaves = faves.map(item => JSON.stringify(item));
+    let index = checkFaves.indexOf(JSON.stringify(manga));
+    console.log("index: " + index);
     if (index >= 0) {
       faves.splice(index, 1);
       console.log(`removing ${manga.a} from my favorites list`);
@@ -41,24 +44,35 @@ export default class App extends Component {
     });
   }
 
-  toggleCurrent(manga) {
-    let index = this.state.currentRead.indexOf(manga);
+  removeCurrent(manga) {
     let current = [...this.state.currentRead];
-    if (index >= 0) {
-      current.splice(index, 1);
-      console.log(`removing ${manga.a} from my currently reading list`);
-    } else {
-      current.push(manga);
-      console.log(`adding ${manga.a} to my currently reading list`);
-    }
+    let checkCurrent = current.map(item => JSON.stringify(item));
+    let index = checkCurrent.indexOf(JSON.stringify(manga));
+    current.splice(index, 1);
+    console.log(`removing ${manga.a} from my current list`);
+
     this.setState({
       currentRead: current
     });
   }
 
+  toggleCurrent(manga) {
+    let current = [...this.state.currentRead];
+    let checkCurrent = current.map(item => JSON.stringify(item));
+    let index = checkCurrent.indexOf(JSON.stringify(manga));
+    if (index < 0) {
+      current.push(manga);
+      console.log(`adding ${manga.a} to my currently reading list`);
+      this.setState({
+        currentRead: current
+      });
+    }
+  }
+
   toggleWant(manga) {
-    let index = this.state.want2Read.indexOf(manga);
     let want = [...this.state.want2Read];
+    let checkWant = want.map(item => JSON.stringify(item));
+    let index = checkWant.indexOf(JSON.stringify(manga));
     if (index >= 0) {
       want.splice(index, 1);
       console.log(`removing ${manga.a} from my want to read list`);
@@ -93,26 +107,6 @@ export default class App extends Component {
     return (
       <div>
         <Router>
-          {/* <nav>
-            <Link to="/">Home</Link>
-            <Link to="/list" onClick={this.resetSearch}>
-              MangaList
-            </Link>
-            <form action="">
-              <input
-                type="text"
-                name="search"
-                id="search"
-                placeholder="Search"
-                onChange={this.updateSearch}
-              />
-              <br />
-              <Link to="/list">
-                <input type="submit" value="Go" onClick={this.updateSearch} />
-              </Link>
-            </form>
-            <Link to="/myManga">MyManga</Link>
-          </nav> */}
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link className="navbar-brand" to="/">
               Manga Eden
@@ -129,7 +123,10 @@ export default class App extends Component {
               <span className="navbar-toggler-icon"></span>
             </button>
 
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item active">
                   <Link className="nav-link" to="/">
@@ -137,7 +134,11 @@ export default class App extends Component {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/list" >
+                  <Link
+                    className="nav-link"
+                    to="/list"
+                    onClick={this.resetSearch}
+                  >
                     MangaList
                   </Link>
                 </li>
@@ -169,40 +170,6 @@ export default class App extends Component {
               </Link>
             </div>
           </nav>
-          {/* <ul class="nav">
-            <li class="nav-item">
-              <Link class="nav-link active" to="/">
-                Home
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link
-                class="nav-link active"
-                to="/list"
-                onClick={this.resetSearch}
-              >
-                MangaList
-              </Link>
-            </li>
-            <li class="nav-item">
-              <form action="" class="nav-link active">
-                <input
-                  type="text"
-                  name="search"
-                  id="search"
-                  placeholder="Search"
-                  onChange={this.updateSearch}
-                />
-                <br />
-                <Link to="/list">
-                  <input type="submit" value="Go" onClick={this.updateSearch} />
-                </Link>
-              </form>
-            </li>
-            <li class="nav-item">
-              <Link to="/myManga">MyManga</Link>
-            </li>
-          </ul> */}
 
           <Switch>
             <Route exact path="/" component={Home} />
@@ -229,7 +196,6 @@ export default class App extends Component {
                   {...props}
                   toggleFave={this.toggleFave}
                   faves={this.state.faves}
-                  title={this.state.currentRead[this.state.currentRead.length-1].t}
                 />
               )}
             />
@@ -241,7 +207,7 @@ export default class App extends Component {
                   {...props}
                   toggleFave={this.toggleFave}
                   toggleWant={this.toggleWant}
-                  toggleCurrent={this.toggleCurrent}
+                  removeCurrent={this.removeCurrent}
                   faves={this.state.faves}
                   want2Read={this.state.want2Read}
                   currentRead={this.state.currentRead}
